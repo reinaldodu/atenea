@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ use App\Http\Controllers\ProductoController;
 //     return view('welcome');
 // });
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('index');
 
 //Rutas para un CRUD de productos
 // Route::get('/productos', [ProductoController::class, 'index'])->name('productos.index');
@@ -36,3 +37,10 @@ Route::resource('productos', ProductoController::class);
 Route::get('/usuarios/{usuario}/productos', [ProductoController::class, 'listarUsuarioProductos'])->name('usuarioProductos');
 Route::post('/usuarios/{usuario}/productos', [ProductoController::class, 'asignarProductosUsuario'])->name('asignarProductosUsuario');
 
+//Rutas para un CRUD de usuarios sin update
+Route::resource('usuarios', UserController::class)->except(['destroy']);
+
+//Rutas de login y logout
+Route::view('/login', 'usuarios.login')->name('login');
+Route::post('/login', [UserController::class, 'login'])->name('login');
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');

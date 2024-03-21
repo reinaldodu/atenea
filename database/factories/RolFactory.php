@@ -17,7 +17,8 @@ class RolFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            //roles: admin, almacenista, inspector
+            'nombre' => $this->faker->randomElement(['admin', 'almacenista', 'inspector']),
         ];
     }
 }

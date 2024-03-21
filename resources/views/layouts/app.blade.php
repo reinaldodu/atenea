@@ -11,6 +11,21 @@
     <header>
         {{-- navbar --}}
         @include('partials.navbar')
+        @if (Auth::check())
+            <div class ="flex justify-end">
+                {{auth()->user()->name}}
+                {{auth()->user()->rol->nombre}}
+                <form action="{{route('logout')}}", method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-xs btn-primary">Logout</button>
+                </form>
+            </div>
+        @else
+            <div class= "flex justify-end">
+                <a href="{{route('login')}}" class="btn btn-xs btn-primary">Login</a>
+            </div>
+            
+        @endif
     </header>
     <main>
         {{-- contenido --}}

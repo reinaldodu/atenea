@@ -2,7 +2,7 @@
 @section('titulo', 'Crear Producto')
 
 @section('contenido')
-    
+@if (auth()->user()->rol->nombre == 'admin' || auth()->user()->rol->nombre == 'inspector')
     <form action="{{route('productos.store')}}" method="POST">
         @csrf
         <div>
@@ -27,4 +27,7 @@
         <br>
         <button class="btn btn-primary" type="submit">Guardar</button>
     </form>
+@else
+    <h1>No tienes permisos para crear productos</h1>
+@endif
 @endsection
