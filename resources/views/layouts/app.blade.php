@@ -14,10 +14,10 @@
         @if (Auth::check())
             <div class ="flex justify-end">
                 {{auth()->user()->name}}
-                {{auth()->user()->rol->nombre}}
+                - [Rol: {{auth()->user()->rol->nombre}}]
                 <form action="{{route('logout')}}", method="POST">
                     @csrf
-                    <button type="submit" class="btn btn-xs btn-primary">Logout</button>
+                    <button type="submit" class="btn btn-xs btn-primary mx-2">Logout</button>
                 </form>
             </div>
         @else
