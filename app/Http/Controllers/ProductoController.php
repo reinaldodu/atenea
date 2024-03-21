@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProductoRequest;
+use App\Models\User;
 
 class ProductoController extends Controller
 {
@@ -27,7 +29,7 @@ class ProductoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductoRequest $request)
     {
         //dump y die
         //dd($request->all());
@@ -57,7 +59,7 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductoRequest $request, string $id)
     {
         Producto::find($id)->update($request->all()); //UPDATE productos SET nombre = ?, precio = ? WHERE id = ?
         //Actualizar solo nombre y precio
@@ -72,5 +74,23 @@ class ProductoController extends Controller
     {
         Producto::destroy($id); //DELETE FROM productos WHERE id = ?
         return to_route('productos.index');
+    }
+
+    // Listar productos de un usuario
+    public function listarUsuarioProductos(User $usuario)
+    {
+        $usuarios = User::all();
+        $productos = Producto::all();
+        $productosUsuario = $usuario->productos;
+        //dd($productos, $productosUsuario);
+        return view('productos.productos_usuarios', compact('productos', 'productosUsuario', 'usuarios', 'usuario'));
+    }
+
+    // Guardar los productos de un usuario
+    public function asignarProductosUsuario(Request $request, User $usuario)
+    {
+        //dd($request->productos);
+        $usuario->productos()->sync($request->productos);
+        return to_route('usuarioProductos', $usuario);
     }
 }

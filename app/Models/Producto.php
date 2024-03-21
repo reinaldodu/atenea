@@ -9,4 +9,10 @@ class Producto extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre', 'precio'];
+
+    public function users()
+    {
+        //Relación muchos a muchos (un producto tiene muchos usuarios)
+        return $this->belongsToMany(User::class);
+    }
 }

@@ -32,3 +32,7 @@ Route::view('/', 'welcome');
 
 Route::resource('productos', ProductoController::class);
 
+// Asociar productos con usuarios
+Route::get('/usuarios/{usuario}/productos', [ProductoController::class, 'listarUsuarioProductos'])->name('usuarioProductos');
+Route::post('/usuarios/{usuario}/productos', [ProductoController::class, 'asignarProductosUsuario'])->name('asignarProductosUsuario');
+

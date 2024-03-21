@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Crear Producto</title>
-</head>
-<body>
+@extends('layouts.app')
+@section('titulo', 'Crear Producto')
+
+@section('contenido')
+    
     <form action="{{route('productos.store')}}" method="POST">
         @csrf
-        <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre">
+        <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" value="{{ old('nombre') }}">
+            @if ($errors->has('nombre'))
+                <div class="badge badge-warning">
+                    {{$errors->first('nombre')}}
+                </div>
+            @endif
+        </div>
+        
         <br>
         <label for="precio">Precio</label>
-        <input type="text" name="precio" id="precio">
+        <input type="text" name="precio" id="precio" value="{{ old('precio') }}">
         <br>
-        <button type="submit">Guardar</button>
+        @if ($errors->has('precio'))
+            <div class="badge badge-warning">
+                {{$errors->first('precio')}}
+            </div>
+        @endif
+        <br>
+        <button class="btn btn-primary" type="submit">Guardar</button>
     </form>
-</body>
-</html>
+@endsection

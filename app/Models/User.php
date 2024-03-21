@@ -42,4 +42,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function productos()
+    {
+        //Relación muchos a muchos (un usuario tiene muchos productos)
+        return $this->belongsToMany(Producto::class);
+    }
+
+    public function rol()  
+    {
+        //Relación uno a uno (un usuario pertenece a un rol)
+        return $this->belongsTo(Rol::class);
+    }
+
 }
